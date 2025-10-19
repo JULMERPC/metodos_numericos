@@ -1,0 +1,433 @@
+# EJEMPLOS DE APLICACIÓN
+## Métodos de Optimización
+
+---
+
+## EJEMPLO 1: Optimización Unidimensional - Minimización de Costos
+
+### Problema Empresarial
+Una empresa produce x unidades de un producto. El costo total está dado por:
+```
+C(x) = x² - 6x + 10
+```
+
+Encuentra la cantidad óptima de producción que minimiza el costo en el intervalo [0, 10].
+
+### Interpretación
+- x: Número de unidades producidas (en miles)
+- C(x): Costo total en miles de dólares
+- x² : Costos que aumentan con la producción (materiales, energía)
+- -6x: Economías de escala (descuentos por volumen)
+- +10: Costos fijos
+
+### Pasos en el Programa
+1. Ejecutar: `python main.py`
+2. Seleccionar opción: **1** (Optimización Unidimensional)
+3. Ingresar función: `x**2 - 6*x + 10`
+4. Límite inferior a: `0`
+5. Límite superior b: `10`
+
+### Solución Esperada
+```
+Resultado: f(x) mínima = 1.0000 en x = 3.0000
+```
+
+### Interpretación del Resultado
+- **x = 3**: Producir 3,000 unidades
+- **C(3) = 1**: Costo mínimo de $1,000
+- Producir menos o más aumenta los costos
+
+### Verificación Analítica
+```
+C'(x) = 2x - 6 = 0
+x = 3 ✓
+
+C(3) = 9 - 18 + 10 = 1 ✓
+```
+
+### Gráfica Conceptual
+```
+Costo
+  |
+10|     \              /
+  |      \            /
+  |       \          /
+  |        \        /
+ 1|         \______/  ← Mínimo en x=3
+  |
+  |________________________ x
+       0    3    10
+```
+
+---
+
+## EJEMPLO 2: Optimización Multidimensional - Diseño de Producto
+
+### Problema de Ingeniería
+Diseñar un recipiente cilíndrico que minimice el material usado. Si el radio es x y la altura es y, el área de material es:
+```
+A(x,y) = 2πx² + 2πxy
+```
+
+Para simplificar, consideramos la función sin π:
+```
+f(x,y) = x² + y² + x*y
+```
+
+### Objetivo
+Encontrar el diseño óptimo (radio y altura) que minimiza el material.
+
+### Pasos en el Programa
+1. Seleccionar opción: **2** (Optimización Multidimensional)
+2. Ingresar función: `x**2 + y**2 + x*y`
+3. Valores iniciales: `1, 1`
+   - Punto de partida para la búsqueda
+
+### Solución Esperada
+```
+Resultado: f(x,y) mínima = 0.0000 en punto [0. 0.]
+```
+
+### Interpretación
+- El mínimo global está en el origen (0, 0)
+- Este es un caso trivial para ilustrar el método
+- En problemas reales con restricciones, el mínimo sería diferente
+
+### Ejemplo Más Realista
+Función: `(x-2)**2 + (y-3)**2`
+```
+Resultado: f(x,y) mínima = 0.0000 en punto [2. 3.]
+```
+Esto indica que el óptimo está en x=2, y=3.
+
+---
+
+## EJEMPLO 3: Optimización con Restricciones - Maximización de Beneficios
+
+### Problema Económico
+Una empresa produce dos productos (x, y). Quiere maximizar beneficios pero tiene limitación de recursos.
+
+**Función objetivo (beneficio):**
+```
+P(x,y) = -x² - y² + 10x + 12y
+```
+(Nota: Para minimizar, usamos -P, equivalente a maximizar P)
+
+**Restricción (presupuesto):**
+```
+x + y = 10
+```
+El total de unidades debe ser 10.
+
+### Transformación para Minimización
+Como el programa minimiza, convertimos:
+```
+Minimizar: f(x,y) = x² + y²
+Restricción: x + y - 10 = 0
+```
+
+### Pasos en el Programa
+1. Seleccionar opción: **3** (Optimización con Restricciones)
+2. Ingresar función: `x**2 + y**2`
+3. Ingresar restricción: `x + y - 10`
+4. Valores iniciales: `5, 5`
+
+### Solución Esperada
+```
+Resultado: f(x,y) mínima = 50.0000 en punto [5. 5.]
+```
+
+### Interpretación
+- **x = 5, y = 5**: Distribuir equitativamente
+- **f(5,5) = 50**: Valor óptimo de la función
+- Cumple la restricción: 5 + 5 = 10 ✓
+
+### Verificación de la Restricción
+```
+g(5, 5) = 5 + 5 - 10 = 0 ✓
+```
+
+### Significado Económico
+Con un presupuesto que permite 10 unidades totales, la distribución óptima es 5 unidades de cada producto para minimizar costos totales (o en el caso original, maximizar beneficios).
+
+---
+
+## COMPARACIÓN DE LOS TRES MÉTODOS
+
+| Característica | Unidimensional | Multidimensional | Con Restricciones |
+|----------------|----------------|------------------|-------------------|
+| **Variables** | 1 (x) | 2+ (x, y, ...) | 2+ con condiciones |
+| **Complejidad** | Baja | Media | Alta |
+| **Aplicaciones** | Costos, precios | Diseño, recursos | Optimización real |
+| **Método usado** | Bounded | BFGS | SLSQP |
+| **Restricciones** | Solo límites [a,b] | Ninguna | Igualdad/Desigualdad |
+
+---
+
+## EJEMPLOS ADICIONALES POR MÉTODO
+
+### A. Más Ejemplos Unidimensionales
+
+#### Ejemplo A1: Trayectoria de Proyectil
+```
+Función: -5*x**2 + 20*x + 1
+Intervalo: [0, 5]
+Interpretación: Altura máxima de un proyectil
+```
+**Resultado esperado:** Máxima altura en x ≈ 2
+
+#### Ejemplo A2: Función Trigonométrica
+```
+Función: np.sin(x) + 0.5*x
+Intervalo: [0, 6.28]
+Nota: Usar 'np.sin' para funciones trigonométricas
+```
+
+### B. Más Ejemplos Multidimensionales
+
+#### Ejemplo B1: Función de Rosenbrock (Benchmark clásico)
+```
+Función: (1-x)**2 + 100*(y-x**2)**2
+Valores iniciales: -1, 1
+Mínimo conocido: x=1, y=1, f=0
+```
+
+#### Ejemplo B2: Función de Himmelblau
+```
+Función: (x**2 + y - 11)**2 + (x + y**2 - 7)**2
+Valores iniciales: 0, 0
+Tiene 4 mínimos locales
+```
+
+### C. Más Ejemplos con Restricciones
+
+#### Ejemplo C1: Optimización de Producción
+```
+Función: x**2 + 2*y**2
+Restricción: 2*x + y - 5
+Valores iniciales: 1, 3
+Interpretación: Minimizar costos con cuota de producción
+```
+
+#### Ejemplo C2: Diseño Geométrico
+```
+Función: x**2 + y**2 + x*y
+Restricción: x + 2*y - 6
+Valores iniciales: 2, 2
+Interpretación: Minimizar perímetro con área fija
+```
+
+---
+
+## GUÍA DE SELECCIÓN DE MÉTODOS
+
+### ¿Cuándo usar Optimización Unidimensional?
+
+**USA cuando:**
+- Solo tienes una variable de decisión
+- Conoces el rango de valores posibles [a, b]
+- Ejemplos: precio óptimo, cantidad óptima, tiempo óptimo
+
+**NO USES cuando:**
+- Tienes múltiples variables
+- No conoces los límites
+
+### ¿Cuándo usar Optimización Multidimensional?
+
+**USA cuando:**
+- Tienes 2 o más variables
+- No hay restricciones (o son solo límites simples)
+- Ejemplos: diseño de productos, asignación de recursos
+
+**NO USES cuando:**
+- Hay restricciones complejas (igualdades/desigualdades)
+- Las variables deben cumplir relaciones entre sí
+
+### ¿Cuándo usar Optimización con Restricciones?
+
+**USA cuando:**
+- Hay relaciones entre variables (ecuaciones)
+- Presupuestos, cuotas, o límites combinados
+- Ejemplos: problemas de producción con restricciones, portfolio con presupuesto
+
+**NO USES cuando:**
+- No hay restricciones (usa multidimensional simple)
+- Las restricciones son solo límites individuales
+
+---
+
+## CONSEJOS PRÁCTICOS
+
+### 1. Elección de Valores Iniciales
+
+**Para Multidimensional y Con Restricciones:**
+- Usa valores "razonables" cerca del óptimo esperado
+- Si no sabes, usa [1, 1] o [0, 0]
+- Si falla, intenta con otros valores iniciales
+
+**Ejemplos:**
+```
+Para x**2 + y**2, usa [1, 1]
+Para (x-5)**2 + (y-3)**2, usa [5, 3]
+Para problemas de producción, usa cantidades típicas
+```
+
+### 2. Escritura de Funciones
+
+**Sintaxis correcta en Python:**
+```
+✓ Correcto:
+x**2         (potencia)
+x*y          (multiplicación)
+np.sin(x)    (seno)
+np.exp(x)    (exponencial)
+np.log(x)    (logaritmo natural)
+np.sqrt(x)   (raíz cuadrada)
+
+✗ Incorrecto:
+x^2          (esto es XOR en Python, no potencia)
+x²           (no válido)
+sin(x)       (debe ser np.sin)
+ln(x)        (debe ser np.log)
+√x           (debe ser np.sqrt)
+```
+
+### 3. Interpretación de Restricciones
+
+**Formato de restricción:**
+```
+Debe ser igual a cero: g(x,y) = 0
+```
+
+**Ejemplos de conversión:**
+```
+x + y = 10     →  Ingresar: x + y - 10
+2x - y = 5     →  Ingresar: 2*x - y - 5
+x² + y² = 25   →  Ingresar: x**2 + y**2 - 25
+```
+
+### 4. Verificación de Resultados
+
+**Siempre verifica:**
+1. **Función objetivo:** ¿El valor tiene sentido?
+2. **Restricciones:** ¿Se cumplen? g(x*, y*) ≈ 0
+3. **Rango:** ¿Los valores están en un rango razonable?
+
+
+
+## PROBLEMAS COMUNES Y SOLUCIONES
+
+### Problema 2: Resultado inesperado
+
+**Causa 1:** Punto inicial lejos del óptimo
+**Solución:** Cambiar valores iniciales
+
+**Causa 2:** Función tiene múltiples mínimos locales
+**Solución:** Probar varios puntos iniciales
+
+### Problema 3: No encuentra solución con restricciones
+
+**Causa:** La restricción es inconsistente con la función
+**Solución:** Verificar que exista solución factible
+
+---
+
+## APLICACIONES DEL MUNDO REAL
+
+### 1. Economía y Finanzas
+- **Portfolio de inversión:** Maximizar retorno con riesgo limitado
+- **Precio óptimo:** Maximizar beneficio según demanda
+- **Producción:** Minimizar costos con cuotas de producción
+
+### 2. Ingeniería
+- **Diseño estructural:** Minimizar peso con resistencia requerida
+- **Control de procesos:** Optimizar parámetros de producción
+- **Trayectorias:** Minimizar tiempo o combustible
+
+### 3. Logística
+- **Rutas de transporte:** Minimizar distancia o costo
+- **Inventario:** Optimizar niveles de stock
+- **Asignación de recursos:** Maximizar eficiencia
+
+### 4. Ciencia de Datos
+- **Regresión:** Minimizar error cuadrático
+- **Machine Learning:** Optimizar hiperparámetros
+- **Clustering:** Minimizar distancias intra-cluster
+
+---
+
+## EJERCICIOS PROPUESTOS
+
+### Ejercicio 1: Unidimensional - Beneficio Máximo
+Una empresa vende x unidades con beneficio:
+```
+B(x) = -2x² + 120x - 1000
+```
+Encuentra el número óptimo de unidades en [0, 100].
+
+**Respuesta esperada:** x = 30, B(30) = 800
+
+---
+
+### Ejercicio 2: Multidimensional - Localización Óptima
+Encuentra el punto (x, y) que minimiza la distancia total a tres ciudades ubicadas en (0,0), (6,0), y (3,5):
+```
+f(x,y) = (x-0)**2 + (y-0)**2 + (x-6)**2 + (y-0)**2 + (x-3)**2 + (y-5)**2
+```
+Valores iniciales: [3, 2]
+
+**Pista:** El óptimo está cerca del centroide de las tres ciudades.
+
+---
+
+### Ejercicio 3: Con Restricciones - Producción con Presupuesto
+Una fábrica produce dos productos con costos de producción:
+```
+C(x,y) = 2x² + 3y²
+```
+Con restricción de producción total:
+```
+x + y = 20
+```
+Encuentra la distribución óptima.
+
+**Valores iniciales:** [10, 10]
+
+---
+
+## COMPARACIÓN DE ALGORITMOS USADOS
+
+### Bounded (Unidimensional)
+- **Método:** Brent's method
+- **Ventajas:** Muy rápido y robusto para 1D
+- **Convergencia:** Cuadrática
+- **Requisitos:** Función continua
+
+### BFGS (Multidimensional)
+- **Método:** Quasi-Newton
+- **Ventajas:** No requiere segundas derivadas
+- **Convergencia:** Super-lineal
+- **Requisitos:** Función diferenciable
+
+### SLSQP (Con Restricciones)
+- **Método:** Sequential Least Squares Programming
+- **Ventajas:** Maneja restricciones de igualdad/desigualdad
+- **Convergencia:** Cuadrática cerca del óptimo
+- **Requisitos:** Función y restricciones diferenciables
+
+---
+
+
+## NOTAS FINALES
+
+### Limitaciones del Programa
+1. Solo minimización (para maximizar, usar -f(x))
+2. Restricciones de igualdad solamente (para ≤ o ≥, usar otros métodos)
+3. Variables continuas (no enteros)
+
+### Mejores Prácticas
+1. Siempre verifica la solución manualmente
+2. Prueba varios puntos iniciales para problemas no convexos
+3. Escala las variables si tienen magnitudes muy diferentes
+4. Usa gráficas para visualizar el problema (fuera del programa)
+

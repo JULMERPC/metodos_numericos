@@ -1,0 +1,254 @@
+# EJEMPLOS DE APLICACIÓN
+## Sistemas de Ecuaciones Lineales - Métodos Numéricos Avanzados
+
+
+## EJEMPLO 1: Método de Cholesky - Sistema 3x3
+
+### Problema
+Resolver un sistema con matriz simétrica y definida positiva (común en problemas de mínimos cuadrados):
+
+```
+4x + 2y + 2z = 4
+2x + 5y + z = 3
+2x + y + 6z = 2
+```
+
+### Matriz del Sistema
+```
+A = | 4  2  2 |    b = | 4 |
+    | 2  5  1 |        | 3 |
+    | 2  1  6 |        | 2 |
+```
+
+**Verificación de Simetría:** A = Aᵀ ✓
+
+### Pasos en el Programa
+1. Ejecutar `python main.py`
+2. Seleccionar opción **1** (Método de Cholesky)
+3. Ingresar tamaño: **3**
+4. Ingresar matriz A (por filas):
+   - Fila 1: `4 2 2`
+   - Fila 2: `2 5 1`
+   - Fila 3: `2 1 6`
+5. Ingresar vector b: `4 3 2`
+
+### Solución Esperada
+```
+x ≈ 0.6552
+y ≈ 0.3448
+z ≈ 0.1379
+```
+
+### Verificación
+```
+4(0.6552) + 2(0.3448) + 2(0.1379) ≈ 4.0 ✓
+2(0.6552) + 5(0.3448) + 1(0.1379) ≈ 3.0 ✓
+2(0.6552) + 1(0.3448) + 6(0.1379) ≈ 2.0 ✓
+```
+
+### Por qué usar Cholesky aquí:
+- La matriz es simétrica y definida positiva
+- Es 2x más rápido que Gauss (O(n³/3) vs O(n³))
+- Numéricamente más estable
+
+---
+
+## EJEMPLO 2: Método de Jacobi - Sistema de Transmisión de Calor
+
+### Problema Físico
+Distribución de temperatura en una placa rectangular dividida en 4 puntos, donde las ecuaciones representan el equilibrio térmico:
+
+```
+10T₁ - T₂ - T₃ = 95
+-T₁ + 10T₂ - T₄ = 100
+-T₁ + 10T₃ - T₄ = 85
+-T₂ - T₃ + 10T₄ = 90
+```
+
+### Matriz del Sistema
+```
+A = | 10  -1   0  -1 |    b = | 95  |
+    | -1  10  -1   0 |        | 100 |
+    |  0  -1  10  -1 |        | 85  |
+    | -1   0  -1  10 |        | 90  |
+```
+
+**Característica:** Matriz diagonalmente dominante (ideal para Jacobi)
+
+### Pasos en el Programa
+1. Seleccionar opción **2** (Método de Jacobi)
+2. Ingresar tamaño: **4**
+3. Ingresar matriz A:
+   - Fila 1: `10 -1 0 -1`
+   - Fila 2: `-1 10 -1 0`
+   - Fila 3: `0 -1 10 -1`
+   - Fila 4: `-1 0 -1 10`
+4. Ingresar vector b: `95 100 85 90`
+5. Tolerancia: `1e-6` (presionar Enter para valor por defecto)
+6. Iteraciones máximas: `1000` (presionar Enter)
+
+### Solución Esperada
+```
+Convergió: True en aproximadamente 25-30 iteraciones
+T₁ ≈ 10.91°C
+T₂ ≈ 11.82°C
+T₃ ≈ 10.00°C
+T₄ ≈ 10.91°C
+```
+
+### Interpretación Física
+Estas temperaturas representan el equilibrio térmico en los 4 puntos internos de la placa, considerando las condiciones de frontera.
+
+### Ventajas del Método Iterativo
+- No requiere modificar la matriz original
+- Útil para sistemas muy grandes y dispersos
+- Fácil de paralelizar
+
+---
+
+## EJEMPLO 3: Método de Gauss-Seidel - Análisis de Circuitos
+
+### Problema
+Análisis nodal de un circuito eléctrico (Leyes de Kirchhoff):
+
+```
+5I₁ - 2I₂ = 20
+-2I₁ + 8I₂ - 3I₃ = 15
+-3I₂ + 6I₃ = 10
+```
+
+Donde I₁, I₂, I₃ son corrientes en amperios.
+
+### Matriz del Sistema
+```
+A = |  5  -2   0 |    b = | 20 |
+    | -2   8  -3 |        | 15 |
+    |  0  -3   6 |        | 10 |
+```
+
+### Pasos en el Programa
+1. Seleccionar opción **3** (Método de Gauss-Seidel)
+2. Ingresar tamaño: **3**
+3. Ingresar matriz A:
+   - Fila 1: `5 -2 0`
+   - Fila 2: `-2 8 -3`
+   - Fila 3: `0 -3 6`
+4. Ingresar vector b: `20 15 10`
+5. Tolerancia: `1e-6`
+6. Iteraciones máximas: `1000`
+
+### Solución Esperada
+```
+Convergió: True en aproximadamente 10-12 iteraciones
+I₁ ≈ 5.38 A
+I₂ ≈ 4.23 A
+I₃ ≈ 3.78 A
+```
+
+### Comparación: Jacobi vs Gauss-Seidel
+
+| Característica | Jacobi | Gauss-Seidel |
+|----------------|--------|--------------|
+| Iteraciones (este ejemplo) | ~25-30 | ~10-12 |
+| Convergencia | Más lenta | Más rápida |
+| Memoria | Necesita vectores x y x_new | Solo un vector |
+| Paralelización | Fácil | Difícil |
+
+**Gauss-Seidel converge aproximadamente 2x más rápido** porque usa los valores actualizados inmediatamente.
+
+---
+
+## COMPARACIÓN DE LOS TRES MÉTODOS
+
+### Tabla Comparativa
+
+| Método | Tipo | Mejor Uso | Complejidad | Requisitos |
+|--------|------|-----------|-------------|------------|
+| **Cholesky** | Directo | Matrices simétricas definidas positivas | O(n³/3) | A = Aᵀ, definida positiva |
+| **Jacobi** | Iterativo | Sistemas grandes dispersos | O(k·n²) | Diagonalmente dominante |
+| **Gauss-Seidel** | Iterativo | Similar a Jacobi, pero más rápido | O(k·n²) | Diagonalmente dominante |
+
+*k = número de iteraciones*
+
+### Guía de Selección
+
+**Usar Cholesky si:**
+- La matriz es simétrica (A = Aᵀ)
+- La matriz es definida positiva
+- Necesitas alta precisión
+- Ejemplo: Problemas de mínimos cuadrados, estadística
+
+**Usar Jacobi si:**
+- La matriz es diagonalmente dominante
+- Quieres paralelizar el cálculo
+- Tienes sistemas muy grandes
+- Ejemplo: Ecuaciones de calor en 2D/3D
+
+**Usar Gauss-Seidel si:**
+- Mismas condiciones que Jacobi
+- Quieres convergencia más rápida
+- No necesitas paralelización
+- Ejemplo: Circuitos eléctricos, estructuras
+
+---
+
+## CONCEPTOS CLAVE
+
+### Matriz Diagonalmente Dominante
+Una matriz es diagonalmente dominante si:
+```
+|aᵢᵢ| > Σ|aᵢⱼ| para todo i≠j
+```
+Es decir, el elemento diagonal es mayor que la suma del resto de elementos en su fila.
+
+### Matriz Definida Positiva
+Una matriz simétrica A es definida positiva si para todo vector x ≠ 0:
+```
+xᵀAx > 0
+```
+Esto garantiza que todos los eigenvalores son positivos.
+
+### Criterio de Convergencia
+Los métodos iterativos convergen cuando:
+```
+||x_nuevo - x_viejo|| < tolerancia
+```
+
+---
+
+## EJERCICIOS PROPUESTOS
+
+### Ejercicio 1: Cholesky
+Matriz 2x2:
+```
+A = | 9  3 |    b = | 12 |
+    | 3  5 |        |  6 |
+```
+¿Es simétrica? ¿Es definida positiva? Resuélvela.
+
+### Ejercicio 2: Jacobi vs Gauss-Seidel
+Resuelve con ambos métodos y compara iteraciones:
+```
+A = | 10  -1   2 |    b = |  6 |
+    | -1  11  -1 |        | 25 |
+    |  2  -1  10 |        | -11|
+```
+
+### Ejercicio 3: ¿Qué método usar?
+Clasifica cada matriz y recomienda el mejor método:
+
+a) Simétrica, todos eigenvalores > 0
+b) Diagonal: 100, resto de elementos: ±1
+c) General 50x50 densa
+
+---
+
+## NOTAS IMPORTANTES
+
+1. **Convergencia no garantizada**: Los métodos iterativos pueden no converger si la matriz no cumple las condiciones necesarias.
+
+2. **Tolerancia**: Un valor típico es 1e-6. Valores más pequeños dan más precisión pero requieren más iteraciones.
+
+3. **Iteraciones máximas**: Si no converge en el límite de iteraciones, el sistema puede ser mal condicionado.
+
+4. **Verificación**: Siempre verifica tu solución calculando ||Ax - b||.

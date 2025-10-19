@@ -1,4 +1,5 @@
-import numpy as np
+import numpy as np 
+"""Importa la librería NumPy para manejar operaciones matriciales y arreglos numéricos"""
 
 def gauss_jordan(A, b):
     n = len(b)
